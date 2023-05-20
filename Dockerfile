@@ -1,5 +1,5 @@
 # Use a base image with Java 17 and Maven installed
-FROM openjdk:17-jdk-hotspot AS build
+FROM openjdk AS build
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -17,7 +17,7 @@ COPY src ./src
 RUN mvn package -DskipTests
 
 # Use a lightweight base image
-FROM openjdk:17-jre-hotspot
+FROM openjdk
 
 # Set the working directory inside the container
 WORKDIR /app
