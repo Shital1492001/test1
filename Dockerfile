@@ -30,4 +30,4 @@ COPY --from=build /app/target/e-commerce-0.0.1-SNAPSHOT.jar ./app.jar
 EXPOSE 5454
 
 # Define the command to run the application
-CMD ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
