@@ -8,7 +8,8 @@ WORKDIR /app
 COPY pom.xml .
 
 # Download dependencies and cache them
-RUN mvn dependency:go-offline -B
+# RUN mvn dependency:go-offline -B
+RUN mvn clean package -Pprod -DskipTests
 
 # Copy the application source code
 COPY src ./src
