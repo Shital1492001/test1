@@ -1,5 +1,5 @@
 # Use a base image with Java 17 and Maven installed
-FROM adoptopenjdk:17-jdk-hotspot AS build
+FROM openjdk:17-jdk-hotspot AS build
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -17,16 +17,16 @@ COPY src ./src
 RUN mvn package -DskipTests
 
 # Use a lightweight base image
-FROM adoptopenjdk:17-jre-hotspot
+FROM openjdk:17-jre-hotspot
 
 # Set the working directory inside the container
 WORKDIR /app
 
 # Copy the built JAR file from the previous stage
-COPY --from=build /app/target/my-application.jar ./app.jar
+COPY --from=build /app/target/e-commerce-0.0.1-SNAPSHOT.jar ./app.jar
 
 # Expose the port on which the application will run
-EXPOSE 8080
+EXPOSE 5454
 
 # Define the command to run the application
 CMD ["java", "-jar", "app.jar"]
