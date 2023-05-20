@@ -5,7 +5,7 @@ FROM openjdk
 WORKDIR /app
 
 # Copy the Spring Boot application JAR file to the container
-COPY target/e-commerce-0.0.1-SNAPSHOT.jar app.jar
+COPY ./target/e-commerce-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose the port on which your Spring Boot application will listen
 EXPOSE 5454
