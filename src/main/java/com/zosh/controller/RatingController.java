@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.zosh.exception.ProductException;
 import com.zosh.exception.UserException;
 import com.zosh.modal.Rating;
 import com.zosh.modal.Review;
 import com.zosh.modal.User;
+import com.zosh.request.RatingRequest;
 import com.zosh.service.RatingServices;
 import com.zosh.service.UserService;
 
@@ -33,7 +35,7 @@ public class RatingController {
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<Rating> createRatingHandler(@RequestBody Rating req,@RequestHeader("Authorization") String jwt) throws UserException{
+	public ResponseEntity<Rating> createRatingHandler(@RequestBody RatingRequest req,@RequestHeader("Authorization") String jwt) throws UserException, ProductException{
 		User user=userService.findUserProfileByJwt(jwt);
 		Rating rating=ratingServices.createRating(req, user);
 		return new ResponseEntity<>(rating,HttpStatus.ACCEPTED);

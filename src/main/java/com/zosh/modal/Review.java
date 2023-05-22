@@ -1,5 +1,7 @@
 package com.zosh.modal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.annotation.Generated;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,6 +21,7 @@ public class Review {
 	
 	@ManyToOne
 	@JoinColumn(name="product_id")
+	@JsonIgnore
 	private Product product;
 
 	@ManyToOne
