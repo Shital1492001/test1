@@ -1,5 +1,9 @@
 package com.zosh.repository;
 
-public class RatingRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.zosh.modal.Rating;
+
+public interface RatingRepository extends JpaRepository<Rating, Long> {
 
 }

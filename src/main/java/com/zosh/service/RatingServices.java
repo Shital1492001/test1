@@ -1,5 +1,10 @@
 package com.zosh.service;
 
-public class RatingServices {
+import com.zosh.modal.Rating;
+import com.zosh.modal.User;
+
+public interface RatingServices {
+	
+	public Rating createRating(Rating req,User user);
 
 }
