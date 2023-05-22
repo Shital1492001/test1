@@ -95,15 +95,30 @@ public class ProductServiceImplementation implements ProductService {
 		
 		Product product=findProductById(productId);
 		
-		productRepository.deleteById(product.getId());
+		System.out.println("delete product "+product.getId()+" - "+productId);
+		product.getSizes().clear();
+//		productRepository.save(product);
+//		product.getCategory().
+		productRepository.delete(product);
 		
 		return "Product deleted Successfully";
 	}
 
 	@Override
-	public Product updateProduct(Long productId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Product updateProduct(Long productId,Product req) throws ProductException {
+		Product product=findProductById(productId);
+		
+		if(req.getQuantity()!=0) {
+			product.setQuantity(req.getQuantity());
+		}
+		if(req.getDescription()!=null) {
+			product.setDescription(req.getDescription());
+		}
+		
+		
+			
+		
+		return productRepository.save(product);
 	}
 
 	@Override
@@ -155,24 +170,17 @@ public class ProductServiceImplementation implements ProductService {
 			products = products.stream()
 			        .filter(p -> colors.stream().anyMatch(c -> c.equalsIgnoreCase(p.getColor())))
 			        .collect(Collectors.toList());
-			
-//		endIndex = Math.min(startIndex + pageable.getPageSize(), filteredProducts.size());
-//		pageContent = filteredByColor.subList(startIndex, endIndex);
-//		System.out.println("colors "+filteredProducts+" size of array "+filteredProducts.size());
-//		Page<Product> filteredPage = new PageImpl<>(pageContent, pageable, filteredProducts.size());
 		
-//		return filteredPage;
 		
 		} 
-		System.out.println("stock value - "+stock);
+
 		if(stock!=null) {
-			System.out.println("stock value not null ----------- ");
+
 			if(stock.equals("in_stock")) {
 				products=products.stream().filter(p->p.getQuantity()>0).collect(Collectors.toList());
 			}
 			else if (stock.equals("out_of_stock")) {
-				products=products.stream().filter(p->p.getQuantity()<1).collect(Collectors.toList());
-				System.out.println("product out of stock ............. ");
+				products=products.stream().filter(p->p.getQuantity()<1).collect(Collectors.toList());				
 			}
 				
 					

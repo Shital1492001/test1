@@ -16,7 +16,7 @@ public interface ProductService {
 	
 	public String deleteProduct(Long productId) throws ProductException;
 	
-	public Product updateProduct(Long productId)throws ProductException;
+	public Product updateProduct(Long productId,Product product)throws ProductException;
 	
 	public List<Product> getAllProducts();
 	

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,11 +38,12 @@ public class AdminProductController {
 		
 	}
 	
-	@DeleteMapping("/{productId}")
+	@DeleteMapping("/{productId}/delete")
 	public ResponseEntity<ApiResponse> deleteProductHandler(@PathVariable Long productId) throws ProductException{
 		
+		System.out.println("dlete product controller .... ");
 		String msg=productService.deleteProduct(productId);
-		
+		System.out.println("dlete product controller .... msg "+msg);
 		ApiResponse res=new ApiResponse(msg,true);
 		
 		return new ResponseEntity<ApiResponse>(res,HttpStatus.ACCEPTED);
@@ -54,6 +56,14 @@ public class AdminProductController {
 		List<Product> products = productService.getAllProducts();
 		
 		return new ResponseEntity<List<Product>>(products,HttpStatus.OK);
+	}
+	
+	@PutMapping("/{productId}/update")
+	public ResponseEntity<Product> updateProductHandler(@RequestBody Product req,@PathVariable Long productId) throws ProductException{
+		
+		Product updatedProduct=productService.updateProduct(productId, req);
+		
+		return new ResponseEntity<Product>(updatedProduct,HttpStatus.OK);
 	}
 	
 	@PostMapping("/creates")

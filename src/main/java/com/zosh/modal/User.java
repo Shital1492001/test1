@@ -51,6 +51,11 @@ public class User {
     @CollectionTable(name="payment_information",joinColumns = @JoinColumn(name="user_id"))
     private List<PaymentInformation> paymentInformation=new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Rating>ratings=new ArrayList<>();
+    
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Review>reviews=new ArrayList<>();
     public User() {
 		
 	}

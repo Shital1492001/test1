@@ -1,9 +1,12 @@
 package com.zosh.modal;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embedded;
@@ -14,6 +17,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Product {
@@ -54,14 +58,17 @@ public class Product {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @Column(name = "rating")
-    private float rating;
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Rating>ratings=new ArrayList<>();
+    
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Review>reviews=new ArrayList<>();
 
     @Column(name = "num_ratings")
     private int numRatings;
     
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name="category_id")
     private Category category;
     
@@ -70,8 +77,8 @@ public class Product {
 	}
 
 	public Product(Long id, String title, String description, int price, int discountedPrice, int discountPersent,
-			int quantity, String brand, String color, Set<Size> sizes, String imageUrl, float rating, int numRatings,
-			Category category) {
+			int quantity, String brand, String color, Set<Size> sizes, String imageUrl, List<Rating> ratings,
+			List<Review> reviews, int numRatings, Category category) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -84,10 +91,35 @@ public class Product {
 		this.color = color;
 		this.sizes = sizes;
 		this.imageUrl = imageUrl;
-		this.rating = rating;
+		this.ratings = ratings;
+		this.reviews = reviews;
 		this.numRatings = numRatings;
 		this.category = category;
 	}
+
+	public List<Rating> getRatings() {
+		return ratings;
+	}
+
+
+
+	public void setRatings(List<Rating> ratings) {
+		this.ratings = ratings;
+	}
+
+
+
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
+	}
+
+
 
 	public String getTitle() {
 		return title;
@@ -171,13 +203,6 @@ public class Product {
 		this.imageUrl = imageUrl;
 	}
 
-	public float getRating() {
-		return rating;
-	}
-
-	public void setRating(float rating) {
-		this.rating = rating;
-	}
 
 	public int getNumRatings() {
 		return numRatings;
@@ -207,15 +232,11 @@ public class Product {
 		this.sizes = sizes;
 	}
 
-
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(brand, category, color, description, discountPersent, discountedPrice, id, imageUrl,
-				numRatings, price, quantity, rating, sizes, title);
+				numRatings, price, quantity, ratings, reviews, sizes, title);
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -231,10 +252,9 @@ public class Product {
 				&& discountPersent == other.discountPersent && discountedPrice == other.discountedPrice
 				&& Objects.equals(id, other.id) && Objects.equals(imageUrl, other.imageUrl)
 				&& numRatings == other.numRatings && price == other.price && quantity == other.quantity
-				&& Float.floatToIntBits(rating) == Float.floatToIntBits(other.rating)
+				&& Objects.equals(ratings, other.ratings) && Objects.equals(reviews, other.reviews)
 				&& Objects.equals(sizes, other.sizes) && Objects.equals(title, other.title);
 	}
-
 
 	
 
