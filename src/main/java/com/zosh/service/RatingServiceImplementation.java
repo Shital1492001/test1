@@ -1,5 +1,7 @@
 package com.zosh.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.zosh.modal.Rating;
@@ -19,6 +21,12 @@ public class RatingServiceImplementation implements RatingServices{
 	public Rating createRating(Rating req,User user) {
 		
 		return ratingRepository.save(req);
+	}
+
+	@Override
+	public List<Rating> getProductsRating(Long productId) {
+		// TODO Auto-generated method stub
+		return ratingRepository.getAllProductsRating(productId);
 	}
 	
 	

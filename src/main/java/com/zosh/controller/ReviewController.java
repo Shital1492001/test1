@@ -24,8 +24,9 @@ public class ReviewController {
 	private ReviewService reviewService;
 	private UserService userService;
 	
-	public ReviewController(ReviewService reviewService) {
+	public ReviewController(ReviewService reviewService,UserService userService) {
 		this.reviewService=reviewService;
+		this.userService=userService;
 		// TODO Auto-generated constructor stub
 	}
 	
