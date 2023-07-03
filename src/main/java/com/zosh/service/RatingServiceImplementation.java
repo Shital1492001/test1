@@ -1,5 +1,6 @@
 package com.zosh.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -31,6 +32,7 @@ public class RatingServiceImplementation implements RatingServices{
 		rating.setProduct(product);
 		rating.setUser(user);
 		rating.setRating(req.getRating());
+		rating.setCreatedAt(LocalDateTime.now());
 		
 		return ratingRepository.save(rating);
 	}

@@ -1,5 +1,7 @@
 package com.zosh.service;
 
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -46,7 +48,8 @@ public class ProductServiceImplementation implements ProductService {
 			topLevel= categoryRepository.save(topLavelCategory);
 		}
 		
-		Category secondLevel=categoryRepository.findByNameAndParant(req.getSecondLavelCategory(),topLevel.getName());
+		Category secondLevel=categoryRepository.
+				findByNameAndParant(req.getSecondLavelCategory(),topLevel.getName());
 		if(secondLevel==null) {
 			
 			Category secondLavelCategory=new Category();
@@ -81,7 +84,7 @@ public class ProductServiceImplementation implements ProductService {
 		product.setSizes(req.getSize());
 		product.setQuantity(req.getQuantity());
 		product.setCategory(thirdLevel);
-		
+		product.setCreatedAt(LocalDateTime.now());
 		
 		Product savedProduct= productRepository.save(product);
 		

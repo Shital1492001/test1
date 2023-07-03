@@ -1,5 +1,6 @@
 package com.zosh.modal;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -72,13 +73,15 @@ public class Product {
     @JoinColumn(name="category_id")
     private Category category;
     
+    private LocalDateTime createdAt;
+    
 	public Product() {
 		
 	}
 
 	public Product(Long id, String title, String description, int price, int discountedPrice, int discountPersent,
 			int quantity, String brand, String color, Set<Size> sizes, String imageUrl, List<Rating> ratings,
-			List<Review> reviews, int numRatings, Category category) {
+			List<Review> reviews, int numRatings, Category category, LocalDateTime createdAt) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -95,31 +98,31 @@ public class Product {
 		this.reviews = reviews;
 		this.numRatings = numRatings;
 		this.category = category;
+		this.createdAt = createdAt;
 	}
 
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
 	public List<Rating> getRatings() {
 		return ratings;
 	}
-
-
 
 	public void setRatings(List<Rating> ratings) {
 		this.ratings = ratings;
 	}
 
-
-
 	public List<Review> getReviews() {
 		return reviews;
 	}
 
-
-
 	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
 	}
-
-
 
 	public String getTitle() {
 		return title;
@@ -193,8 +196,6 @@ public class Product {
 		this.color = color;
 	}
 
-	
-
 	public String getImageUrl() {
 		return imageUrl;
 	}
@@ -202,7 +203,6 @@ public class Product {
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
-
 
 	public int getNumRatings() {
 		return numRatings;
@@ -220,13 +220,9 @@ public class Product {
 		this.category = category;
 	}
 
-
-
 	public Set<Size> getSizes() {
 		return sizes;
 	}
-
-
 
 	public void setSizes(Set<Size> sizes) {
 		this.sizes = sizes;

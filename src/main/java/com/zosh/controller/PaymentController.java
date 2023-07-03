@@ -60,7 +60,7 @@ public class PaymentController {
 		      paymentLinkRequest.put("amount",order.getTotalPrice()* 100);
 		      paymentLinkRequest.put("currency","INR");    
 //		      paymentLinkRequest.put("expire_by",1691097057);
-		      paymentLinkRequest.put("reference_id",order.getId().toString());
+//		      paymentLinkRequest.put("reference_id",order.getId().toString());
 		     
 
 		      // Create a JSON object with the customer details

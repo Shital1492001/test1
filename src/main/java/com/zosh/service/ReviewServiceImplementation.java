@@ -1,5 +1,6 @@
 package com.zosh.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -33,8 +34,9 @@ public class ReviewServiceImplementation implements ReviewService {
 		review.setUser(user);
 		review.setProduct(product);
 		review.setReview(req.getReview());
+		review.setCreatedAt(LocalDateTime.now());
 		
-		product.getReviews().add(review);
+//		product.getReviews().add(review);
 		productRepository.save(product);
 		return reviewRepository.save(review);
 	}

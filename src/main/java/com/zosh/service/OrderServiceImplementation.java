@@ -65,6 +65,7 @@ public class OrderServiceImplementation implements OrderService {
 			orderItem.setUserId(item.getUserId());
 			orderItem.setDiscountedPrice(item.getDiscountedPrice());
 			
+			
 			OrderItem createdOrderItem=orderItemRepository.save(orderItem);
 			
 			orderItems.add(createdOrderItem);
@@ -83,6 +84,7 @@ public class OrderServiceImplementation implements OrderService {
 		createdOrder.setOrderDate(LocalDateTime.now());
 		createdOrder.setOrderStatus(OrderStatus.PENDING);
 		createdOrder.getPaymentDetails().setStatus(PaymentStatus.PENDING);
+		createdOrder.setCreatedAt(LocalDateTime.now());
 		
 		Order savedOrder=orderRepository.save(createdOrder);
 		

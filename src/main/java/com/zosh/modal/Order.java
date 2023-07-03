@@ -60,9 +60,19 @@ public class Order {
     private OrderStatus orderStatus;
     
     private int totalItem;
+    
+    private LocalDateTime createdAt;
 
     public Order() {
 		
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
 	}
 
 	public int getTotalItem() {

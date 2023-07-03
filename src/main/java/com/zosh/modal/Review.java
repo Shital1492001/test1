@@ -1,5 +1,7 @@
 package com.zosh.modal;
 
+import java.time.LocalDateTime;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.annotation.Generated;
@@ -28,16 +30,27 @@ public class Review {
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	public Review() {
-		// TODO Auto-generated constructor stub
-	}
+	private LocalDateTime createdAt;
 	
-	public Review(Long id, String review, Product product, User user) {
+	public Review() {
+		
+	}
+
+	public Review(Long id, String review, Product product, User user, LocalDateTime createdAt) {
 		super();
 		this.id = id;
 		this.review = review;
 		this.product = product;
 		this.user = user;
+		this.createdAt = createdAt;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
 	}
 
 	public User getUser() {

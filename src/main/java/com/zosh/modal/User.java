@@ -1,4 +1,5 @@
 package com.zosh.modal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,17 +52,23 @@ public class User {
     @CollectionTable(name="payment_information",joinColumns = @JoinColumn(name="user_id"))
     private List<PaymentInformation> paymentInformation=new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Rating>ratings=new ArrayList<>();
     
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Review>reviews=new ArrayList<>();
+    
+    private LocalDateTime createdAt;
+    
     public User() {
 		
 	}
 
 	public User(Long id, String firstName, String lastName, String password, String email, UserRole role, String mobile,
-			List<Address> addresses, List<PaymentInformation> paymentInformation) {
+			List<Address> addresses, List<PaymentInformation> paymentInformation, List<Rating> ratings,
+			List<Review> reviews, LocalDateTime createdAt) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -72,6 +79,33 @@ public class User {
 		this.mobile = mobile;
 		this.addresses = addresses;
 		this.paymentInformation = paymentInformation;
+		this.ratings = ratings;
+		this.reviews = reviews;
+		this.createdAt = createdAt;
+	}
+
+	public List<Rating> getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(List<Rating> ratings) {
+		this.ratings = ratings;
+	}
+
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
 	}
 
 	public Long getId() {

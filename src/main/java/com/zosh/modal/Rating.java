@@ -1,5 +1,7 @@
 package com.zosh.modal;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -28,17 +30,28 @@ public class Rating {
 
     @Column(name = "rating")
     private double rating;
+    
+    private LocalDateTime createdAt;
 
     public Rating() {
 		// TODO Auto-generated constructor stub
 	}
-    
-	public Rating(Long id, User user, Product product, double rating) {
+
+	public Rating(Long id, User user, Product product, double rating, LocalDateTime createdAt) {
 		super();
 		this.id = id;
 		this.user = user;
 		this.product = product;
 		this.rating = rating;
+		this.createdAt = createdAt;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
 	}
 
 	public Long getId() {
