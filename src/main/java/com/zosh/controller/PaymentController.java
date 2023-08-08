@@ -1,6 +1,7 @@
 package com.zosh.controller;
 
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,12 @@ import com.razorpay.RazorpayException;
 @RequestMapping("/api")
 public class PaymentController {
 	
+	   @Value("${razorpay.api.key}")
+	    private String apiKey;
+
+	    @Value("${razorpay.api.secret}")
+	    private String apiSecret;
+	
 	private OrderService orderService;
 	private UserService userService;
 	private OrderRepository orderRepository;
@@ -53,7 +60,7 @@ public class PaymentController {
 		Order order=orderService.findOrderById(orderId);
 		 try {
 		      // Instantiate a Razorpay client with your key ID and secret
-		      RazorpayClient razorpay = new RazorpayClient("rzp_test_kTsRSaDC8hwztX", "LieoD1s9mxMIv569PcgRDMcU");
+		      RazorpayClient razorpay = new RazorpayClient(apiKey, apiSecret);
 
 		      // Create a JSON object with the payment link request parameters
 		      JSONObject paymentLinkRequest = new JSONObject();
@@ -115,7 +122,7 @@ public class PaymentController {
 	
   @GetMapping("/payments")
   public ResponseEntity<ApiResponse> redirect(@RequestParam(name="payment_id") String paymentId,@RequestParam("order_id")Long orderId) throws RazorpayException, OrderException {
-	  RazorpayClient razorpay = new RazorpayClient("rzp_test_kTsRSaDC8hwztX", "LieoD1s9mxMIv569PcgRDMcU");
+	  RazorpayClient razorpay = new RazorpayClient(apiKey, apiSecret);
 	  Order order =orderService.findOrderById(orderId);
 	
 	  try {

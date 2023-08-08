@@ -18,8 +18,11 @@ import com.zosh.response.ApiResponse;
 import com.zosh.service.CartItemService;
 import com.zosh.service.UserService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/cart_items")
+@Tag(name="Cart Item Management", description = "create cart item delete cart item")
 public class CartItemController {
 
 	private CartItemService cartItemService;
