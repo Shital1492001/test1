@@ -198,4 +198,11 @@ public class ProductServiceImplementation implements ProductService {
 		
 	}
 
+
+	@Override
+	public List<Product> recentlyAddedProduct() {
+		
+		return productRepository.findTop10ByOrderByCreatedAtDesc();
+	}
+
 }

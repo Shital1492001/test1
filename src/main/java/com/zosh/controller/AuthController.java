@@ -22,6 +22,7 @@ import com.zosh.request.LoginRequest;
 import com.zosh.response.AuthResponse;
 import com.zosh.service.CartService;
 import com.zosh.service.CustomUserDetails;
+import com.zosh.user.domain.UserRole;
 
 import jakarta.validation.Valid;
 
@@ -50,12 +51,12 @@ public class AuthController {
 	        String password = user.getPassword();
 	        String firstName=user.getFirstName();
 	        String lastName=user.getLastName();
+	        UserRole role=user.getRole();
 	        
 	        User isEmailExist=userRepository.findByEmail(email);
 
 	        // Check if user with the given email already exists
 	        if (isEmailExist!=null) {
-	        // System.out.println("--------- exist "+isEmailExist).getEmail());
 	        	
 	            throw new UserException("Email Is Already Used With Another Account");
 	        }
@@ -66,8 +67,7 @@ public class AuthController {
 			createdUser.setFirstName(firstName);
 			createdUser.setLastName(lastName);
 	        createdUser.setPassword(passwordEncoder.encode(password));
-	        
-	        
+	        createdUser.setRole(role);
 	        
 	        User savedUser= userRepository.save(createdUser);
 	        

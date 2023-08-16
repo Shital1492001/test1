@@ -29,7 +29,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 		    "AND (:minDiscount IS NULL OR p.discountPersent >= :minDiscount) " +
 		    "ORDER BY " +
 		    "CASE WHEN :sort = 'price_low' THEN p.discountedPrice END ASC, " +
-		    "CASE WHEN :sort = 'price_high' THEN p.discountedPrice END DESC")
+		    "CASE WHEN :sort = 'price_high' THEN p.discountedPrice END DESC, "+
+		    "p.createdAt DESC")
 	List<Product> filterProducts(
 	        @Param("category") String category,
 			@Param("minPrice") Integer minPrice,
@@ -37,4 +38,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 			@Param("minDiscount") Integer minDiscount,
 			@Param("sort") String sort
 			);
+	
+	public List<Product> findTop10ByOrderByCreatedAtDesc();
 }
