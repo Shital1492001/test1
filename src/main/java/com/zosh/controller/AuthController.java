@@ -51,7 +51,7 @@ public class AuthController {
 	        String password = user.getPassword();
 	        String firstName=user.getFirstName();
 	        String lastName=user.getLastName();
-	        UserRole role=user.getRole();
+	        String role=user.getRole();
 	        
 	        User isEmailExist=userRepository.findByEmail(email);
 
